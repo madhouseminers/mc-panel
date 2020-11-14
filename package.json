@@ -20,7 +20,9 @@
   },
   "scripts": {
     "dev": "nodemon src/index.ts",
-    "test": "jest"
+    "test": "jest",
+    "build": "tsc",
+    "start": "node dist/index.js"
   },
   "jest": {
     "preset": "ts-jest",
