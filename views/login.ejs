@@ -17,7 +17,7 @@
     <form method="POST">
         <div class="form-group">
             <label for="email">E-mail Address</label>
-            <input type="email" name="email" id="email" class="form-control" value=<%= email %> required />            
+            <input type="email" name="email" id="email" class="form-control" value="<%= email %>" required />            
             <%if (errors.email) { %>
                 <div class="alert alert-danger"><%= errors.email %></div>
             <% } %>
