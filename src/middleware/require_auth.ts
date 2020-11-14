@@ -1,7 +1,6 @@
 import * as express from "express";
-import { verify } from "jsonwebtoken";
-import type { SessionToken, SessionRequest } from "../types/sessions";
-import { fetch_user_by_id } from "../data/user";
+import type { SessionRequest } from "../types/sessions";
+import { get_user_from_session_token } from "../util/session";
 
 export default async function requireAuth(
   req: SessionRequest,
@@ -14,21 +13,14 @@ export default async function requireAuth(
   }
 
   // Check if the session cookie is a valid JWT
-  let token: SessionToken;
   try {
-    token = verify(
-      req.cookies.session_token,
-      process.env.JWT_KEY
-    ) as SessionToken;
-  } catch (_e) {
-    return res.redirect("/");
-  }
-
-  // Append the user details to the request
-  try {
-    req.user = await fetch_user_by_id(req.app.get("db"), token.id);
+    req.user = await get_user_from_session_token(
+      req.app.get("db"),
+      req.cookies.session_token
+    );
   } catch (e) {
     console.log(e.message);
+    res.clearCookie("session_token");
     return res.redirect("/");
   }
 

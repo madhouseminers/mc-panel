@@ -2,5 +2,5 @@
 Before Lunch:
   ✔ Login:: check if the user exists, password is correct, set session cookie (JWT?) @started(20-11-14 11:52) @done(20-11-14 13:40) @lasted(1h48m4s)
   ✔ Hook up to Snyk @done(20-11-14 15:31)
-  ☐ Hook up to SonarQube
-  ☐ Login:: If user is already logged in, redirect to the dashboard
+  ✔ Hook up to SonarQube @done(20-11-14 15:38)
+  ✔ Login:: If user is already logged in, redirect to the dashboard @done(20-11-14 15:48)

@@ -3,10 +3,23 @@ import * as jwt from "jsonwebtoken";
 import { fetch_user_by_email } from "../data/user";
 import * as argon2 from "argon2";
 import { User } from "../types/user";
+import { get_user_from_session_token } from "../util/session";
 
 let router = Router();
 
-router.get("/", (_req, res) => {
+router.get("/", async (req, res) => {
+  if (req.cookies.session_token) {
+    // Validate session is valid
+    try {
+      await get_user_from_session_token(
+        req.app.get("db"),
+        req.cookies.session_token
+      );
+      return res.redirect("/dashboard");
+    } catch (e) {
+      res.clearCookie("session_token");
+    }
+  }
   res.render("login", { errors: {}, email: "" });
 });
 
